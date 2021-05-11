@@ -121,7 +121,6 @@ io.on('connection', function(socket) {
   });
 });
 
-
 const checkRegisteredNumber = async function(number) {
   const isRegistered = await client.isRegisteredUser(number);
   return isRegistered;
@@ -156,7 +155,6 @@ app.post('/send-message', [
       message: 'The number is not registered'
     });
   }
-
   client.sendMessage(number, message).then(response => {
     res.status(200).json({
       status: true,
@@ -206,7 +204,7 @@ app.post('/send-media', async (req, res) => {
 
 const findGroupByName = async function(name) {
   const group = await client.getChats().then(chats => {
-    return chats.find(chat => 
+    return chats.find(chat =>
       chat.isGroup && chat.name.toLowerCase() == name.toLowerCase()
     );
   });
@@ -252,7 +250,7 @@ app.post('/send-group-message', [
     }
     chatId = group.id._serialized;
   }
-
+  
   client.sendMessage(chatId, message).then(response => {
     res.status(200).json({
       status: true,
@@ -266,49 +264,7 @@ app.post('/send-group-message', [
   });
 });
 
-// Clearing message on spesific chat
-app.post('/clear-message', [
-  body('number').notEmpty(),
-], async (req, res) => {
-  const errors = validationResult(req).formatWith(({
-    msg
-  }) => {
-    return msg;
-  });
-
-  if (!errors.isEmpty()) {
-    return res.status(422).json({
-      status: false,
-      message: errors.mapped()
-    });
-  }
-
-  const number = phoneNumberFormatter(req.body.number);
-
-  const isRegisteredNumber = await checkRegisteredNumber(number);
-
-  if (!isRegisteredNumber) {
-    return res.status(422).json({
-      status: false,
-      message: 'The number is not registered'
-    });
-  }
-
-  const chat = await client.getChatById(number);
-  
-  chat.clearMessages().then(status => {
-    res.status(200).json({
-      status: true,
-      response: status
-    });
-  }).catch(err => {
-    res.status(500).json({
-      status: false,
-      response: err
-    });
-  })
-});
-
 server.listen(port, function() {
   console.log('App running on *: ' + port);
 });
+  
