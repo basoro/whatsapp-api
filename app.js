@@ -19,7 +19,7 @@ app.use(express.urlencoded({
 
 app.get('/', (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.sendFile('app.html', {
+  res.sendFile('index.html', {
     root: __dirname
   });
 });
