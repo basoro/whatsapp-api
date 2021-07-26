@@ -178,49 +178,6 @@ io.on('connection', function(socket) {
   });
 });
 
-// io.on('connection', function(socket) {
-//   socket.emit('message', 'Connecting...');
-
-//   client.on('qr', (qr) => {
-//     console.log('QR RECEIVED', qr);
-//     qrcode.toDataURL(qr, (err, url) => {
-//       socket.emit('qr', url);
-//       socket.emit('message', 'QR Code received, scan please!');
-//     });
-//   });
-
-//   client.on('ready', () => {
-//     socket.emit('ready', 'Whatsapp is ready!');
-//     socket.emit('message', 'Whatsapp is ready!');
-//   });
-
-//   client.on('authenticated', (session) => {
-//     socket.emit('authenticated', 'Whatsapp is authenticated!');
-//     socket.emit('message', 'Whatsapp is authenticated!');
-//     console.log('AUTHENTICATED', session);
-//     sessionCfg = session;
-//     fs.writeFile(SESSION_FILE_PATH, JSON.stringify(session), function(err) {
-//       if (err) {
-//         console.error(err);
-//       }
-//     });
-//   });
-
-//   client.on('auth_failure', function(session) {
-//     socket.emit('message', 'Auth failure, restarting...');
-//   });
-
-//   client.on('disconnected', (reason) => {
-//     socket.emit('message', 'Whatsapp is disconnected!');
-//     fs.unlinkSync(SESSION_FILE_PATH, function(err) {
-//         if(err) return console.log(err);
-//         console.log('Session file deleted!');
-//     });
-//     client.destroy();
-//     client.initialize();
-//   });
-// });
-
 // Send message
 app.post('/send-message', (req, res) => {
   const sender = req.body.sender;
