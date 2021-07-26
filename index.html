@@ -218,9 +218,7 @@
                 });
             });
             var api_protocol = $(location).attr('protocol');
-            var api_host = $(location).attr('host'); 
             var api_hostname = $(location).attr('hostname'); 
-            var api_port = $(location).attr('port');       
             function sendMessage() {
                 var xhttp = new XMLHttpRequest();
                 var sender = document.getElementById("sender").value;
@@ -237,7 +235,7 @@
                         }
                     }
                 };
-                xhttp.open("POST", "https://wa.basoro.id/send-message", true);
+                xhttp.open("POST", protocol + "://" + hostname + ":3000/send-message", true);
                 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 xhttp.send("sender=" + sender + "&number=" + number + "&message=" + message);
             }
@@ -258,7 +256,7 @@
                         }
                     }
                 };                
-                xhttp.open("POST", "https://wa.basoro.id/send-media", true);
+                xhttp.open("POST", protocol + "://" + hostname + ":3000/send-media", true);
                 xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                 xhttp.send("sender=" + sender + "&number=" + number + "&caption=" + caption + "&file=" + file);
             }
